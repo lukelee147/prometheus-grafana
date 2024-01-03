@@ -1,0 +1,788 @@
+global:
+  resolve_timeout: 1m
+
+receivers:
+- name: ivirse-telegram
+  webhook_configs:
+  - url: 'http://10.0.0.14:9088/alert/-1002124260999'
+
+- name: System-Team
+  webhook_configs:
+  - url: 'http://10.0.0.14:9088/alert/-815609975'
+
+- name: isofh-server
+  webhook_configs:
+  - url: 'http://10.0.0.14:9088/alert/-983667254'
+
+- name: phongkham40-telegram
+  webhook_configs:
+  - url: 'http://10.0.0.14:9088/alert/-1002134473168'
+
+- name: daihocy-telegram
+  webhook_configs:
+  - url: 'http://10.0.0.14:9088/alert/-1002129986412'
+
+- name: ndtp-telegram
+  webhook_configs:
+  - url: 'http://10.0.0.14:9088/alert/-1002019540689'
+
+route:
+  continue: false
+  group_by: ['instance']
+  group_interval: 30s
+  group_wait: 10s
+  repeat_interval: 30s
+  receiver: System-Team
+  routes:
+
+####################################################
+####################################################
+############### Nhi Đồng Thành Phố #################
+####################################################
+
+    - match:
+        category: container-status
+        container_name: his-ndtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: his-ndtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: his-ndtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+    - match:
+        category: container-status
+        container_name: zipkin
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: zipkin
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: zipkin
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+
+    - match:
+        category: container-status
+        container_name: emr-eureka-ndtp-production-2502
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: emr-eureka-ndtp-production-2502
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: emr-eureka-ndtp-production-2502
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+
+    - match:
+        category: container-status
+        container_name: his-ndtp-production-2529
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: his-ndtp-production-2529
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: his-ndtp-production-2529
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+
+
+    - match:
+        category: container-status
+        container_name: emr-zuul-ndtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: emr-zuul-ndtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: emr-zuul-ndtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+
+
+
+    - match:
+        category: container-status
+        container_name: emr-eureka-ndtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: emr-eureka-ndtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: emr-eureka-ndtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+
+
+
+    - match:
+        category: container-status
+        container_name: his-frontend-nhidongtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: his-frontend-nhidongtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: his-frontend-nhidongtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+
+
+    - match:
+        category: container-status
+        container_name: pdf-generator
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: pdf-generator
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: pdf-generator
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+
+
+
+    - match:
+        category: container-status
+        container_name: project-nodejs-visualize-nhidongtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: project-nodejs-visualize-nhidongtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: project-nodejs-visualize-nhidongtp-production
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+    - match:
+        category: container-status
+        container_name: rabbitmq
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: rabbitmq
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: rabbitmq
+        app_type: Nhi Đồng Thành Phố
+      receiver: ndtp-telegram
+      group_wait: 5s
+
+
+
+  ################### STATUS #################
+    #  LOCAL isofh 
+    - match:
+        category: container-status
+        container_name: searching-service
+        app_type: Server Test
+      receiver: isofh-server
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: flamboyant_dubinsky
+        app_type: Server Test
+      receiver: isofh-server
+      group_wait: 3s  
+
+    - match:
+        category: container-status
+        container_name: golang-app
+        app_type: Server Test
+      receiver: isofh-server
+      group_wait: 3s  
+
+    #  LOCAL isofh 
+    - match:
+        category: container-memory
+        container_name: searching-service
+        app_type: Server Test
+      receiver: isofh-server
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: golang-app
+        app_type: Server Test
+      receiver: isofh-server
+      group_wait: 3s  
+
+    - match:
+        category: container-memory
+        container_name: flamboyant_dubinsky
+        app_type: Server Test
+      receiver: isofh-server
+      group_wait: 3s  
+
+
+  
+  #  IVIRSE
+    - match:
+        category: container-status
+        container_name: isofh_caserver_1
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 2s
+
+    - match:
+        category: container-status
+        container_name: cadvisor
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+      
+      # 103.9.211.87
+    - match:
+        category: container-status
+        container_name: project-react-js-payment-gateway-isofh-production
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: project-node-ts-payment-gateway-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: project-node-js-getblockinfo-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: project-node-js-expiredactionschedule-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: project-node-js-paymentactiontrigger-isofh-production
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: project-node-js-exchange-rate-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: nginx-docker_app_1 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: project-node-js-gettxlogs-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: kafka-isofh 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: zookeeper-isofh 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-status
+        container_name: kafka-ui-isofh 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: isofh_postgres_1
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: isofh_caserver_1
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: project-react-js-payment-gateway-isofh-production
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: project-node-ts-payment-gateway-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: project-node-js-getblockinfo-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: project-node-js-expiredactionschedule-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: project-node-js-paymentactiontrigger-isofh-production
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: project-node-js-exchange-rate-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: nginx-docker_app_1 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: project-node-js-gettxlogs-isofh-production 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: kafka-isofh 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: zookeeper-isofh 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: kafka-ui-isofh 
+        app_type: IVIRSE
+      receiver: ivirse-telegram
+      group_wait: 3s
+
+####################################################
+####################################################
+########### PHÒNG KHÁM 40 ##########################
+####################################################
+
+    - match:
+        category: container-status
+        container_name: his-frontend-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: his-frontend-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-cpu
+        container_name: his-frontend-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+#####
+    - match:
+        category: container-status
+        container_name: project-nodejs-visualize-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: project-nodejs-visualize-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-cpu
+        container_name: project-nodejs-visualize-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+#####
+    - match:
+        category: container-status
+        container_name: pdf-generator
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+######
+
+    - match:
+        category: container-status
+        container_name: his-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: his-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-cpu
+        container_name: his-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+######
+
+    - match:
+        category: container-status
+        container_name: emr-zuul-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: emr-zuul-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-cpu
+        container_name: emr-zuul-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+######
+
+    - match:
+        category: container-status
+        container_name: emr-eureka-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: emr-eureka-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-cpu
+        container_name: emr-eureka-pk40-production
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+######
+
+    - match:
+        category: container-status
+        container_name: rabbitmq
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: rabbitmq
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-cpu
+        container_name: rabbitmq
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+######
+
+    - match:
+        category: container-status
+        container_name: zipkin
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-memory
+        container_name: zipkin
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+    - match:
+        category: container-cpu
+        container_name: zipkin
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+######
+
+    - match:
+        category: container-status
+        container_name: emr-config
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+######
+
+    - match:
+        category: container-status
+        container_name: haproxy_isofh
+        app_type: Phòng Khám 40
+      receiver: phongkham40-telegram
+      group_wait: 3s
+
+####################################################
+####################################################
+########### ĐẠI HỌC Y ##############################
+####################################################
+
+    - match:
+        category: container-status
+        container_name: his-app-8081-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-status
+        container_name: his-app-8082-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-status
+        container_name: gb-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+    
+    - match:
+        category: container-status
+        container_name: gs-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+    
+    - match:
+        category: container-memory
+        container_name: his-app-8081-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: his-app-8082-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-memory
+        container_name: gb-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+    
+    - match:
+        category: container-memory
+        container_name: gs-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: his-app-8081-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: his-app-8082-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+
+    - match:
+        category: container-cpu
+        container_name: gb-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+    
+    - match:
+        category: container-cpu
+        container_name: gs-dhy-production
+        app_type: Đại Học Y
+      receiver: daihocy-telegram
+      group_wait: 5s
+
+templates:
+- '/etc/alertmanager/template/template.tmpl'

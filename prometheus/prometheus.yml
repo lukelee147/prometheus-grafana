@@ -1,0 +1,215 @@
+# my global config
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
+  # scrape_timeout is set to the global default (10s).
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: 'Hospitals'
+
+# Load and evaluate rules in this file every 'evaluation_interval' seconds.
+rule_files:
+  - './rules/ndtp/*.yml'
+  - './rules/dhy/*.yml'
+  - './rules/pk40/*.yml'
+  - './rules/ivirse/*.yml'
+
+# alert
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+        - targets:
+            - "alertmanager:9093"
+      basic_auth:
+        username: admin
+        password: toivaban
+
+scrape_configs:
+  
+  - job_name: 'ndtp'
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+        - '10.0.2.40:19092'
+        - '10.0.2.40:9092'
+        - '10.0.2.41:19092'
+        - '10.0.2.41:9092'
+
+  - job_name: 'ivirse'
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+        - '103.9.211.120:19092'
+        - '103.9.211.120:9092'
+        - '103.9.211.87:19094'
+        - '103.9.211.87:19093'
+        - '103.9.211.193:19094'
+        - '103.9.211.193:19093'
+        - '103.9.211.93:19094'
+        - '103.9.211.93:19093'
+
+  - job_name: 'dhy'
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+        - '192.168.55.162:19092'
+        - '192.168.55.162:9099'
+        - '192.168.55.163:19092'
+        - '192.168.55.163:9099'
+        - '192.168.55.164:19092'
+        - '192.168.55.164:9099'
+        # - '192.168.55.64:19093'
+        # - '192.168.55.63:19093'
+        # - '192.168.55.64:19094'
+        # - '192.168.55.63:19094'
+        
+  - job_name: 'pk40'
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+        - '192.168.10.230:19092'
+        - '192.168.10.231:19092'
+        - '192.168.10.234:19092'
+        - '192.168.10.235:19092'
+        - '192.168.10.230:9092'
+        - '192.168.10.231:9092'
+        - '192.168.10.234:19093'
+        - '192.168.10.235:19093'
+  
+  - job_name: 'st-paul'
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+        - '172.16.16.16:9092'
+        - '172.16.16.17:9092'
+        - '172.16.16.14:9092'
+        - '172.16.16.15:9092'
+        - '172.16.16.24:9092'
+        - '172.16.16.28:9092'
+# ========================================== PRIVATE ==========================================
+  - job_name: 'Jenkins'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['10.0.0.182:19100']
+
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+    basic_auth:
+      username: admin
+      password: toivaban
+
+  # - job_name: 'cadvisor'
+  #   scrape_interval: 5s
+  #   dns_sd_configs:
+  #     - names:
+  #         - 'tasks.cadvisor'
+  #       type: 'A'
+  #       port: 8080
+  #   static_configs:
+  #     - targets: ['10.0.0.182:19093']
+
+  # - job_name: 'docker-state'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['10.0.0.131:19092']
+
+  - job_name: 'node-exporter'
+    scrape_interval: 5s
+    dns_sd_configs:
+      - names:
+          - 'tasks.node-exporter'
+        type: 'A'
+        port: 9100
+
+
+#  - job_name: 'pushgateway'
+#    scrape_interval: 10s
+#    dns_sd_configs:
+#    - names:
+#      - 'tasks.pushgateway'
+#      type: 'A'
+#      port: 9091
+
+#     static_configs:
+#          - targets: ['node-exporter:9100']
+
+  - job_name: 'Check Domain Status'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    static_configs:
+      - targets:
+        - http://10.0.0.182:19400 # Target to probe with http on port 8080.
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9115  # The blackbox exporter's real hostname:port.
+  
+  - job_name: 'blackbox_exporter'  # collect blackbox exporter's operational metrics.
+    static_configs:
+      - targets: ['10.0.0.235:19400']
+
+  - job_name: blackbox_all
+    metrics_path: /probe
+    params:
+      module: [ http_2xx ]  # Look for a HTTP 200 response.
+    dns_sd_configs:
+      - names:
+          - example.com
+          - prometheus.io
+        type: A
+        port: 443
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+        replacement: https://$1/  # Make probe URL be like https://1.2.3.4:443/
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9115  # The blackbox exporter's real hostname:port.
+      - source_labels: [__meta_dns_name]
+        target_label: __param_hostname  # Make domain name become 'Host' header for probe requests
+      - source_labels: [__meta_dns_name]
+        target_label: vhost  # and store it in 'vh
+
+  - job_name: 'Check_Port_Container'
+    params:
+      module:
+      - tcp_connect
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    scheme: http
+    static_configs:
+    - targets:
+      - 10.0.0.182:5000
+      - 10.0.0.182:9087
+    relabel_configs:
+    - source_labels: [__address__]
+      separator: ;
+      regex: (.*)
+      target_label: __param_target
+      replacement: $1
+      action: replace
+    - source_labels: [__param_target]
+      separator: ;
+      regex: (.*)
+      target_label: instance
+      replacement: $1
+      action: replace
+    - separator: ;
+      regex: (.*)
+      target_label: __address__
+      replacement: 10.0.0.101:9115
+      action: replace

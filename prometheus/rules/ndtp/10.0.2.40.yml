@@ -1,0 +1,563 @@
+groups:
+- name: Container
+  rules:
+##### his-ndtp-production
+  - alert: Container Status his-ndtp-production
+    expr: container_state_status{status="exited",name=~"his-ndtp-production",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: his-ndtp-production
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory his-ndtp-production
+    expr: (container_memory_working_set_bytes{job='ndtp', name='his-ndtp-production'}) / (container_spec_memory_limit_bytes{job="ndtp", name='his-ndtp-production', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: his-ndtp-production
+    annotations:
+      summary: "RAM container quá 95%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **his-ndtp-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU his-ndtp-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='his-ndtp-production',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: his-ndtp-production
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+
+########## ZIPKIN #########
+
+  - alert: Container Status zipkin
+    expr: container_state_status{status="exited",name=~"zipkin",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: zipkin
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory zipkin
+    expr: (container_memory_working_set_bytes{job='ndtp', name='zipkin'}) / (container_spec_memory_limit_bytes{job="ndtp", name='zipkin', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: zipkin
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **zipkin**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU zipkin
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='zipkin',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: zipkin
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+
+###### emr-eureka-ndtp-production-2502
+
+  - alert: Container Status emr-eureka-ndtp-production-2502
+    expr: container_state_status{status="exited",name=~"emr-eureka-ndtp-production-2502",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: emr-eureka-ndtp-production-2502
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory emr-eureka-ndtp-production-2502
+    expr: (container_memory_working_set_bytes{job='ndtp', name='emr-eureka-ndtp-production-2502'}) / (container_spec_memory_limit_bytes{job="ndtp", name='emr-eureka-ndtp-production-2502', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: emr-eureka-ndtp-production-2502
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **emr-eureka-ndtp-production-2502**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU emr-eureka-ndtp-production-2502
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='emr-eureka-ndtp-production-2502',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: emr-eureka-ndtp-production-2502
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+###### his-ndtp-production-2529
+
+  - alert: Container Status his-ndtp-production-2529
+    expr: container_state_status{status="exited",name=~"his-ndtp-production-2529",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: his-ndtp-production-2529
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory his-ndtp-production-2529
+    expr: (container_memory_working_set_bytes{job='ndtp', name='his-ndtp-production-2529'}) / (container_spec_memory_limit_bytes{job="ndtp", name='his-ndtp-production-2529', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: his-ndtp-production-2529
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **his-ndtp-production-2529**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU his-ndtp-production-2529
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='his-ndtp-production-2529',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: his-ndtp-production-2529
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+##### emr-zuul-ndtp-production
+  - alert: Container Status emr-zuul-ndtp-production
+    expr: container_state_status{status="exited",name=~"emr-zuul-ndtp-production",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: emr-zuul-ndtp-production
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory emr-zuul-ndtp-production
+    expr: (container_memory_working_set_bytes{job='ndtp', name='emr-zuul-ndtp-production'}) / (container_spec_memory_limit_bytes{job="ndtp", name='emr-zuul-ndtp-production', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: emr-zuul-ndtp-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **emr-zuul-ndtp-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU emr-zuul-ndtp-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='emr-zuul-ndtp-production',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: emr-zuul-ndtp-production
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+##### emr-eureka-ndtp-production
+
+  - alert: Container Status emr-eureka-ndtp-production
+    expr: container_state_status{status="exited",name=~"emr-eureka-ndtp-production",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: emr-eureka-ndtp-production
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory emr-eureka-ndtp-production
+    expr: (container_memory_working_set_bytes{job='ndtp', name='emr-eureka-ndtp-production'}) / (container_spec_memory_limit_bytes{job="ndtp", name='emr-eureka-ndtp-production', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: emr-eureka-ndtp-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **emr-eureka-ndtp-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU emr-eureka-ndtp-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='emr-eureka-ndtp-production',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: emr-eureka-ndtp-production
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+##### his-frontend-nhidongtp-production
+
+  - alert: Container Status his-frontend-nhidongtp-production
+    expr: container_state_status{status="exited",name=~"his-frontend-nhidongtp-production",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: his-frontend-nhidongtp-production
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory his-frontend-nhidongtp-production
+    expr: (container_memory_working_set_bytes{job='ndtp', name='his-frontend-nhidongtp-production'}) / (container_spec_memory_limit_bytes{job="ndtp", name='his-frontend-nhidongtp-production', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: his-frontend-nhidongtp-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **his-frontend-nhidongtp-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU his-frontend-nhidongtp-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='his-frontend-nhidongtp-production',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: his-frontend-nhidongtp-production
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+
+##### pdf-generator
+  - alert: Container Status pdf-generator
+    expr: container_state_status{status="exited",name=~"pdf-generator",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: pdf-generator
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory pdf-generator
+    expr: (container_memory_working_set_bytes{job='ndtp', name='pdf-generator'}) / (container_spec_memory_limit_bytes{job="ndtp", name='pdf-generator', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: pdf-generator
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **pdf-generator**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU pdf-generator
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='pdf-generator',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 1000
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: pdf-generator
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+##### project-nodejs-visualize-nhidongtp-production
+
+  - alert: Container Status project-nodejs-visualize-nhidongtp-production
+    expr: container_state_status{status="exited",name=~"project-nodejs-visualize-nhidongtp-production",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: project-nodejs-visualize-nhidongtp-production
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory project-nodejs-visualize-nhidongtp-production
+    expr: (container_memory_working_set_bytes{job='ndtp', name='project-nodejs-visualize-nhidongtp-production'}) / (container_spec_memory_limit_bytes{job="ndtp", name='project-nodejs-visualize-nhidongtp-production', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: project-nodejs-visualize-nhidongtp-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **project-nodejs-visualize-nhidongtp-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU project-nodejs-visualize-nhidongtp-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='project-nodejs-visualize-nhidongtp-production',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: project-nodejs-visualize-nhidongtp-production
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+#### rabbit MQ
+  - alert: Container Status rabbitmq
+    expr: container_state_status{status="exited",name=~"rabbitmq",instance='10.0.2.40:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: rabbitmq
+      app_type: Nhi Đồng Thành Phố
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Memory rabbitmq
+    expr: (container_memory_working_set_bytes{job='ndtp', name='rabbitmq'}) / (container_spec_memory_limit_bytes{job="ndtp", name='rabbitmq', instance='10.0.2.40:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-memory    
+      container_name: rabbitmq
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **rabbitmq**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU rabbitmq
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ndtp',name='rabbitmq',instance='10.0.2.40:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Nhi Đồng Thành Phố
+      category: container-cpu    
+      container_name: rabbitmq
+    annotations:
+      summary: "CPU container cao"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+

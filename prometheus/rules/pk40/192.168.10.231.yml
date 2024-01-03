@@ -1,0 +1,405 @@
+groups:
+- name: Container
+
+# 192.168.10.231
+  rules:
+
+  - alert: Container Status his-frontend-pk40-production
+    expr: container_state_status{status="exited",name=~"his-frontend-pk40-production",instance='192.168.10.231:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: his-frontend-pk40-production
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED
+
+  - alert: Container Memory his-frontend-pk40-production
+    expr: (container_memory_working_set_bytes{job='pk40', name='his-frontend-pk40-production'}) / (container_spec_memory_limit_bytes{job="pk40", name='his-frontend-pk40-production', instance='192.168.10.231:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-memory    
+      container_name: his-frontend-pk40-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **his-frontend-pk40-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU his-frontend-pk40-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='pk40',name='his-frontend-pk40-production',instance='192.168.10.231:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-cpu    
+      container_name: his-frontend-pk40-production
+    annotations:
+      summary: "CPU container quá 95%"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+
+  - alert: Container Status project-nodejs-visualize-pk40-production
+    expr: container_state_status{status="exited",name=~"project-nodejs-visualize-pk40-production",instance='192.168.10.231:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: project-nodejs-visualize-pk40-production
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED
+
+  - alert: Container Memory project-nodejs-visualize-pk40-production
+    expr: (container_memory_working_set_bytes{job='pk40', name='project-nodejs-visualize-pk40-production'}) / (container_spec_memory_limit_bytes{job="pk40", name='project-nodejs-visualize-pk40-production', instance='192.168.10.231:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-memory    
+      container_name: project-nodejs-visualize-pk40-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **project-nodejs-visualize-pk40-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU project-nodejs-visualize-pk40-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='pk40',name='project-nodejs-visualize-pk40-production',instance='192.168.10.231:9092' }[1m])) BY (instance, name) * 100) > 500
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-cpu    
+      container_name: project-nodejs-visualize-pk40-production
+    annotations:
+      summary: "CPU container quá 95%"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+
+
+  - alert: Container Status pdf-generator
+    expr: container_state_status{status="exited",name=~"pdf-generator",instance='192.168.10.231:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: pdf-generator
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED
+
+
+  - alert: Container Status his-pk40-production
+    expr: container_state_status{status="exited",name=~"his-pk40-production",instance='192.168.10.231:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: his-pk40-production
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED
+
+  - alert: Container Memory his-pk40-production
+    expr: (container_memory_working_set_bytes{job='pk40', name='his-pk40-production'}) / (container_spec_memory_limit_bytes{job="pk40", name='his-pk40-production', instance='192.168.10.231:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-memory    
+      container_name: his-pk40-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **his-pk40-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU his-pk40-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='pk40',name='his-pk40-production',instance='192.168.10.231:9092' }[1m])) BY (instance, name) * 100) > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-cpu    
+      container_name: his-pk40-production
+    annotations:
+      summary: "CPU container quá 95%"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+  - alert: Container Status emr-zuul-pk40-production
+    expr: container_state_status{status="exited",name=~"emr-zuul-pk40-production",instance='192.168.10.231:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: emr-zuul-pk40-production
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED
+
+  - alert: Container Memory emr-zuul-pk40-production
+    expr: (container_memory_working_set_bytes{job='pk40', name='emr-zuul-pk40-production'}) / (container_spec_memory_limit_bytes{job="pk40", name='emr-zuul-pk40-production', instance='192.168.10.231:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-memory    
+      container_name: emr-zuul-pk40-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **emr-zuul-pk40-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU emr-zuul-pk40-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='pk40',name='emr-zuul-pk40-production',instance='192.168.10.231:9092' }[1m])) BY (instance, name) * 100) > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-cpu    
+      container_name: emr-zuul-pk40-production
+    annotations:
+      summary: "CPU container quá 95%"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+  - alert: Container Status emr-eureka-pk40-production
+    expr: container_state_status{status="exited",name=~"emr-eureka-pk40-production",instance='192.168.10.231:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: emr-eureka-pk40-production
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED
+
+  - alert: Container Memory emr-eureka-pk40-production
+    expr: (container_memory_working_set_bytes{job='pk40', name='emr-eureka-pk40-production'}) / (container_spec_memory_limit_bytes{job="pk40", name='emr-eureka-pk40-production', instance='192.168.10.231:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-memory    
+      container_name: emr-eureka-pk40-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **emr-eureka-pk40-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU emr-eureka-pk40-production
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='pk40',name='emr-eureka-pk40-production',instance='192.168.10.231:9092' }[1m])) BY (instance, name) * 100) > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-cpu    
+      container_name: emr-eureka-pk40-production
+    annotations:
+      summary: "CPU container quá 95%"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+
+  - alert: Container Status rabbitmq
+    expr: container_state_status{status="exited",name=~"rabbitmq",instance='192.168.10.231:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: rabbitmq
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED
+
+  - alert: Container Memory rabbitmq
+    expr: (container_memory_working_set_bytes{job='pk40', name='rabbitmq'}) / (container_spec_memory_limit_bytes{job="pk40", name='rabbitmq', instance='192.168.10.231:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-memory    
+      container_name: rabbitmq
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **rabbitmq**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU rabbitmq
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='pk40',name='rabbitmq',instance='192.168.10.231:9092' }[1m])) BY (instance, name) * 100) > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-cpu    
+      container_name: rabbitmq
+    annotations:
+      summary: "CPU container quá 95%"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%
+
+
+  - alert: Container Status zipkin
+    expr: container_state_status{status="exited",name=~"zipkin",instance='192.168.10.231:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: zipkin
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED
+
+  - alert: Container Memory zipkin
+    expr: (container_memory_working_set_bytes{job='pk40', name='zipkin'}) / (container_spec_memory_limit_bytes{job="pk40", name='zipkin', instance='192.168.10.231:9092'}) * 100 > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-memory    
+      container_name: zipkin
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME: 
+        
+        **zipkin**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container CPU zipkin
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='pk40',name='zipkin',instance='192.168.10.231:9092' }[1m])) BY (instance, name) * 100) > 95
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: Phòng Khám 40
+      category: container-cpu    
+      container_name: zipkin
+    annotations:
+      summary: "CPU container quá 95%"
+      description: |
+      
+        CONTAINER NAME: {{ $labels.name }}
+
+        Thông tin cụ thể: 
+
+          CPU USED : {{ printf "%.2f" $value}}%

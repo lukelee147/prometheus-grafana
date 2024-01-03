@@ -1,0 +1,35 @@
+groups:
+- name: Container
+  rules:
+
+  - alert: Container Status haproxy_isofh
+    expr: container_state_status{status="exited",name=~"haproxy_isofh",instance='192.168.10.235:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: haproxy_isofh
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED
+
+  - alert: Container Status emr-config
+    expr: container_state_status{status="exited",name=~"emr-config",instance='192.168.10.235:19092'} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: emr-config
+      app_type: Phòng Khám 40
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       Container bị EXITED

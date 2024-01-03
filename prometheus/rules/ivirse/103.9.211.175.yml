@@ -1,0 +1,412 @@
+groups:
+- name: Container
+
+
+  rules:
+  - alert: Container Status project-react-js-payment-gateway-isofh-production
+    expr: container_state_status{status="exited",name=~"project-react-js-payment-gateway-isofh-production"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: project-react-js-payment-gateway-isofh-production
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Status project-react-js-payment-gateway-isofh-production
+    expr: container_state_status{status="exited",name=~"project-react-js-payment-gateway-isofh-production"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: project-react-js-payment-gateway-isofh-production
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Status project-node-js-getblockinfo-isofh-production
+    expr: container_state_status{status="exited",name=~"project-node-js-getblockinfo-isofh-production"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: project-node-js-getblockinfo-isofh-production
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+
+  - alert: Container Status project-node-js-expiredactionschedule-isofh-production
+    expr: container_state_status{status="exited",name=~"project-node-js-expiredactionschedule-isofh-production"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: project-node-js-expiredactionschedule-isofh-production
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Status project-node-js-paymentactiontrigger-isofh-production
+    expr: container_state_status{status="exited",name=~"project-node-js-paymentactiontrigger-isofh-production"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: project-node-js-paymentactiontrigger-isofh-production
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Status project-node-js-exchange-rate-isofh-production
+    expr: container_state_status{status="exited",name=~"project-node-js-exchange-rate-isofh-production"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: project-node-js-exchange-rate-isofh-production
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Status nginx-docker_app_1
+    expr: container_state_status{status="exited",name=~"nginx-docker_app_1"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: nginx-docker_app_1
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Status project-node-js-gettxlogs-isofh-production
+    expr: container_state_status{status="exited",name=~"project-node-js-gettxlogs-isofh-production"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: project-node-js-gettxlogs-isofh-production
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+       
+  - alert: Container Status kafka-isofh
+    expr: container_state_status{status="exited",name=~"kafka-isofh"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: kafka-isofh
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Status zookeeper-isofh
+    expr: container_state_status{status="exited",name=~"zookeeper-isofh"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: zookeeper-isofh
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+  - alert: Container Status kafka-ui-isofh
+    expr: container_state_status{status="exited",name=~"kafka-ui-isofh"} == 1
+    for: 1s
+    labels:
+      severity: khẩn cấp
+      category: container-status
+      container_name: kafka-ui-isofh
+      app_type: IVIRSE
+    annotations:
+      summary: Container exited
+      description: |
+
+       CONTAINER NAME:-  {{ $labels.name }}
+
+       CONTAINER BỊ TẮT 
+
+
+################################################  
+################## RAM #########################  
+################################################  
+
+  - alert: Container Memory project-node-js-expiredactionschedule-isofh-production
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='project-react-js-payment-gateway-isofh-production'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: project-node-js-expiredactionschedule-isofh-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:
+        
+        **project-node-js-expiredactionschedule-isofh-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+
+  - alert: Container Memory project-node-js-exchange-rate-isofh-production
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='project-node-js-exchange-rate-isofh-production'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: project-node-js-exchange-rate-isofh-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:  
+        
+        **project-node-js-exchange-rate-isofh-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container Memory project-node-js-expiredactionschedule-isofh-production
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='project-node-js-expiredactionschedule-isofh-production'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: project-node-js-expiredactionschedule-isofh-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:  
+        
+        **project-node-js-expiredactionschedule-isofh-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container Memory project-node-ts-payment-gateway-isofh-production
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='project-node-ts-payment-gateway-isofh-production'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: project-node-ts-payment-gateway-isofh-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:  
+        
+        **project-node-ts-payment-gateway-isofh-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container Memory project-node-js-getblockinfo-isofh-production
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='project-node-js-getblockinfo-isofh-production'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: project-node-js-getblockinfo-isofh-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:  
+        
+        **project-node-js-getblockinfo-isofh-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container Memory nginx-docker_app_1
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='nginx-docker_app_1'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: nginx-docker_app_1
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:  
+        
+        **nginx-docker_app_1**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+
+  - alert: Container Memory project-node-js-gettxlogs-isofh-production
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='project-node-js-gettxlogs-isofh-production'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: project-node-js-gettxlogs-isofh-production
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:  
+        
+        **project-node-js-gettxlogs-isofh-production**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container Memory kafka-isofh
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='kafka-isofh'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: kafka-isofh
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:  
+        
+        **kafka-isofh**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container Memory zookeeper-isofh
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='zookeeper-isofh'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: zookeeper-isofh
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:  
+        
+        **zookeeper-isofh**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+  - alert: Container Memory kafka-ui-isofh
+    expr: sum(container_memory_working_set_bytes{job='ivirse', name='kafka-ui-isofh'}) / sum(container_spec_memory_limit_bytes{job="ivirse", id="/", instance="103.9.211.87:19093"}) * 100 > 90
+    for: 10s
+    labels:
+      severity: khẩn cấp
+      app_type: IVIRSE
+      category: container-memory    
+      container_name: kafka-ui-isofh
+    annotations:
+      summary: "RAM container quá 90%"
+      description: |
+      
+        CONTAINER NAME:  
+        
+        **kafka-ui-isofh**
+
+        Thông tin cụ thể: 
+
+          RAM USED: {{ printf "%.2f" $value}}% / 100%
+
+
+
+################################################  
+################## CPU #########################  
+################################################  
+
+  # - alert: Container CPU project-react-js-payment-gateway-isofh-production
+  #   expr: (sum(rate(container_cpu_usage_seconds_total{name!="",job='ivirse',name='project-react-js-payment-gateway-isofh-production'}[1m])) BY (instance, name) * 100) > 95
+  #   for: 10s
+  #   labels:
+  #     severity: khẩn cấp
+  #     app_type: Server Test
+  #     category: container-cpu    
+  #     container_name: project-react-js-payment-gateway-isofh-production
+  #   annotations:
+  #     summary: "CPU container quá 95%"
+  #     description: |
+      
+  #       CONTAINER NAME: {{ $labels.name }}
+
+  #       Thông tin cụ thể: 
+
+  #         CPU USED : {{ printf "%.2f" $value}}%
